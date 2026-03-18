@@ -1154,7 +1154,7 @@ Une fonction est un **bloc de code réutilisable** qui peut prendre des paramèt
 PHP possède des milliers de fonctions intégrées.
 
 **Fonctions essentielles à connaître :**
->
+
 | Catégorie | Fonctions |
 |-----------|-----------|
 | **Affichage** | `echo`, `print`, `var_dump()`, `print_r()` |
