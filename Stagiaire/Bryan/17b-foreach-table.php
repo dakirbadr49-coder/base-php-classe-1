@@ -1,6 +1,6 @@
 <?php
 
-$stagiaire = ["prenom" => "Robin", "nom" => "Craeye", "age" => 31];
+$stagiaire = ["prenom" => "Bryan", "nom" => "Trinidad", "age" => 26];
 
 echo "<table border='1' style='border-collapse: collapse; width: 300px;'>";
 echo "<tr>
@@ -12,7 +12,7 @@ foreach ($stagiaire as $cle => $valeur) {
     echo "<tr>";
     echo "<td><strong>$cle</strong></td>";
     echo "<td>$valeur</td>";
-    echo "</tr>";
+    echo "</tr>"; 
 }
 
 echo "</table>";

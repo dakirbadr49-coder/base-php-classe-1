@@ -24,7 +24,6 @@ function calculSimple($a, $b, $operateur) {
     }
 }
 
-// Tests
 echo "10 + 5 = " . calculSimple(10, 5, '+') . "<br>";
 echo "10 - 5 = " . calculSimple(10, 5, '-') . "<br>";
 echo "10 * 5 = " . calculSimple(10, 5, '*') . "<br>";

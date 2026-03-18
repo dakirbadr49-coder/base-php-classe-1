@@ -1,5 +1,6 @@
 <?php
-$prenoms = ['Robin',
+$prenoms = [
+'Robin',
 'Bryan',
 'Raphael',
 'Soufiane',
