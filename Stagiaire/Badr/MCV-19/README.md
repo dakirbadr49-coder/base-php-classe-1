@@ -32,3 +32,17 @@
 - `view ` Dossier contanant les vues (temlates **backend**) 
 - `controlleur ` Dossier qui gére le lien entre la `view` et les `model` (entre **Backend** et **Middele-end**)
 - `datas` - nos fichiers de préparation du travail
+
+
+#### .gitkeep
+Mettez-y des `.gitkeep` dans chaque dossier et faites des commit.
+
+
+#### Création du config.php 
+
+**AVANT** La création  de `Stagiaire\Badr\MCV-19\README.md config.php` , ouvrez `.gitignore` et mettez-y : `
+
+``` bash
+#Stagiaire\Badr\MCV-19\README.md
+
+``` 
