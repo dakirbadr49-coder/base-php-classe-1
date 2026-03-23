@@ -1151,6 +1151,123 @@ for ($i = 0; $i < 20; $i++) {
 
 ---
 
+## 11 - Les inclusions de fichiers
+
+Les expressions `include`, `include_once`, `require` et `require_once` permettent d'**inclure et exécuter** un fichier PHP.
+
+### 11.1 - include et include_once
+
+- `include` : inclut le fichier. Si absent → **warning**, le script continue.
+- `include_once` : idem, mais n'inclut **qu'une seule fois** le même fichier.
+
+```php
+<?php
+include("menu.php");         // Inclut menu.php
+include("menu.php");         // Inclut une 2ème fois menu.php
+
+include_once("footer.php");  // Inclut footer.php
+include_once("footer.php");  // N'inclut PAS une 2ème fois
+```
+
+### 11.2 - require et require_once
+
+- `require` : inclut le fichier. Si absent → **erreur fatale**, le script STOPPE.
+- `require_once` : idem, mais n'inclut **qu'une seule fois** le même fichier.
+
+```php
+<?php
+require("config.php");       // Si absent, le script s'arrête
+require_once("functions.php"); // Inclus une seule fois
+```
+
+> 💡 **Bonne pratique** : utilisez `require_once` pour les fichiers critiques (config, fonctions), `include` pour les templates optionnels.
+
+📖 [Documentation : include](https://www.php.net/manual/fr/function.include.php) | [require](https://www.php.net/manual/fr/function.require.php)
+
+---
+
+### 11.3 - Le contrôleur frontal (Front Controller)
+
+Le contrôleur frontal centralise **toutes les requêtes** vers un seul fichier `index.php` qui redirige vers les bons templates.
+
+**Architecture de fichiers :**
+
+```
+projet/
+├── index.php           → redirige vers public/
+├── public/
+│   ├── index.php       → CONTRÔLEUR FRONTAL
+│   ├── css/style.css
+│   ├── js/script.js
+│   └── img/
+├── templates/
+│   ├── inc/
+│   │   ├── menu.php
+│   │   └── footer.php
+│   ├── accueil.php
+│   ├── contact.php
+│   ├── actualites.php
+│   └── page-404.php
+```
+
+**index.php (racine) :**
+```php
+<?php
+header("Location: public");
+exit;
+```
+
+**public/index.php (contrôleur frontal) :**
+```php
+<?php
+if (isset($_GET['section'])) {
+    switch ($_GET['section']) {
+        case 'contact':
+            include('../templates/contact.php');
+            break;
+        case 'actualites':
+            include('../templates/actualites.php');
+            break;
+        case 'rgpd':
+            include('../templates/mentions-legales.php');
+            break;
+        default:
+            include('../templates/page-404.php');
+    }
+} else {
+    include('../templates/accueil.php');
+}
+```
+
+**templates/accueil.php :**
+```php
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Accueil</title>
+    <link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+    <?php include 'inc/menu.php'; ?>
+    <h1>Bienvenue</h1>
+    <p>Page d'accueil</p>
+    <?php include 'inc/footer.php'; ?>
+</body>
+</html>
+```
+
+> ⚠️ Les chemins CSS/JS/images partent du **contrôleur frontal** (dossier `public/`).
+
+#### ✏️ Exercice 19
+> Créez un dossier `19-front-controller/` avec l'architecture ci-dessus. Créez un site de 4 pages (accueil, actualités, contact, mentions légales) avec un menu de navigation par `$_GET` et une page 404.
+
+---
+
+[Retour à la table des matières](#table-des-matières)
+
+---
+
 ## 12 - Les fonctions
 
 Une fonction est un **bloc de code réutilisable** qui peut prendre des paramètres et renvoyer une valeur.
