@@ -3,3 +3,11 @@
 # du fichier config.php
 
 config.php
+
+# on refuse tous les fichiers de datas 
+datas/*
+
+# sauf le fichier zipper
+!datas/projet.zip 
+
+
