@@ -1,0 +1,10 @@
+# Stagiaire/Michael/mvc-19/.gitignore
+
+# On protège nos variables et constantes dangereuses
+# du fichier config.php
+config.php
+
+# On empèche de suivre le dossier data
+datas/*
+# Mais on garde un fichier s'y trouvant avec le !
+!datas/pojet.zip
