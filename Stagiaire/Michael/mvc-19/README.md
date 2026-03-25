@@ -52,8 +52,18 @@ const ROOT_PATH = __DIR__;
 
 Créez le fichier `config.php` à la racine du projet. Il est protégé grâce au `.gitconfig`.
 
+#### Création du config.ini.php
+
+Pour les besoins de l'exercice, nous allons créer un fichier de configuration `config.ini.php` qui contiendra des constantes de sécurité. Ce fichier doit être suivi par `git` et permet de le copier pour créer le `config.php` qui lui ne doit pas être suivi par `git` et qui contiendra les 'vraies' valeurs de sécurité.
+
 ### Phase 3
 
 #### Création du contôlleur frontal
 
 Le front controller, nommé `public/index.php`, est le seul fichier `php` qui sera accessible à un utilisateur externe.
+
+####
+
+Il va devoir Recréer config.php pour accéder aux contantes de sécurité.
+```php
+
