@@ -53,3 +53,8 @@ config.php
 ```
 
 Créez le fichier `config.php` à la racine du projet. il est protége grace au `.gitconfig` 
+
+### Phase 3
+### Création du contoleur frontal
+
+le front controller, nommé `public`
