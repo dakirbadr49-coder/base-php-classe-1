@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio - Développeur PHP/React</title>
+    <title>Portfolio - Développeur PHP/React | erreur 404</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -14,10 +14,9 @@
 
     <main>
         <section style="text-align: center; margin-top: 10vh;">
-            <h1>Bonjour, je suis <span class="text-highlight">Développeur Junior</span></h1>
+            <h1>ERREUR <span>404</span></h1>
             <p style="font-size: 1.2rem; max-width: 600px; margin: 0 auto 2rem; color: var(--text-light);">
-                Spécialisé dans l'écosystème PHP (Symfony) et JavaScript (React). 
-                Je conçois des API robustes et des interfaces dynamiques en m'appuyant sur une logique analytique stricte.
+               Page inexistance ou déplacée: d'autres articles passionants à cette adresse <a href="./">ici</a>
             </p>
             <a href="?page=projets" class="btn btn-primary">Explorer mes projets</a>
         </section>

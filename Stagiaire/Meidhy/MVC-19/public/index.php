@@ -16,4 +16,7 @@ if(!isset($_GET["page"])){
 } elseif(in_array($_GET['page'],PUBLIC_PAGES)){
     // Si la variable GET correspond à une valeur acceptée dans le tableau
     include ROOT_PATH . "/view/".$_GET['page'] . ".php";
+} else{
+    // appel de la page 404
+    include ROOT_PATH . '/view/404.php';
 }
