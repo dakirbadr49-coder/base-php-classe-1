@@ -1,28 +1,21 @@
 <?php
-
-
-
-function calculSimple(float $a, float $b, string $operateur): float|string
-{
-    if ($operateur === "+")  return $a + $b;
-    if ($operateur === "-")  return $a - $b;
-    if ($operateur === "*")  return $a * $b;
-    if ($operateur === "/") {
-        if ($b == 0)
-            return "Division par 0 impossible";
-        return $a / $b;
-    } else {
-        return "Opérateur invalide";
+function inverserMot($mot) {
+    $motInverser = "";
+    $nbLetters = strlen($mot);
+    for ($i = $nbLetters-1; $i >= 0; $i--) {
+        $motInverser .= $mot[$i];
     }
+    return $motInverser;
 }
 
+$mot     = "";
+$resultat = null;
 
-
-if (isset($_POST["valeur1"],$_POST["valeur2"],$_POST["operateur"])) {
-    $premiereValeur = (float) $_POST["valeur1"];
-    $deuxiemeValeur = (float) $_POST["valeur2"];
-    $operateur = (string) $_POST["operateur"];
-    $res= calculSimple($premiereValeur,$deuxiemeValeur,$operateur) ;
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $mot = trim($_POST["mot"] ?? "");
+    if ($mot !== "") {
+        $resultat = inverserMot($mot);
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -30,7 +23,7 @@ if (isset($_POST["valeur1"],$_POST["valeur2"],$_POST["operateur"])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculatrice</title>
+    <title>Inverser un mot</title>
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -63,18 +56,11 @@ if (isset($_POST["valeur1"],$_POST["valeur2"],$_POST["operateur"])) {
             margin-bottom: 28px;
         }
 
-        .row {
-            display: flex;
-            gap: 10px;
-            align-items: flex-end;
-            margin-bottom: 18px;
-        }
-
         .field {
             display: flex;
             flex-direction: column;
             gap: 6px;
-            flex: 1;
+            margin-bottom: 18px;
         }
 
         label {
@@ -85,8 +71,7 @@ if (isset($_POST["valeur1"],$_POST["valeur2"],$_POST["operateur"])) {
             color: #888;
         }
 
-        input[type="number"],
-        select {
+        input[type="text"] {
             width: 100%;
             padding: 10px 12px;
             border: 1px solid #e0ddd6;
@@ -96,23 +81,12 @@ if (isset($_POST["valeur1"],$_POST["valeur2"],$_POST["operateur"])) {
             color: #1a1a1a;
             background: #fafaf8;
             transition: border-color .2s;
-            appearance: none;
         }
 
-        input[type="number"]:focus,
-        select:focus {
+        input[type="text"]:focus {
             outline: none;
             border-color: #1a1a1a;
             background: #fff;
-        }
-
-        .field-op {
-            flex: 0 0 64px;
-        }
-
-        select {
-            text-align: center;
-            cursor: pointer;
         }
 
         button {
@@ -142,70 +116,62 @@ if (isset($_POST["valeur1"],$_POST["valeur2"],$_POST["operateur"])) {
             text-align: center;
         }
 
-        .result .expr {
-            font-family: 'DM Mono', monospace;
-            font-size: .82rem;
+        .result .label {
+            font-size: .72rem;
+            font-weight: 500;
+            letter-spacing: .08em;
+            text-transform: uppercase;
             color: #888;
-            margin-bottom: 4px;
+            margin-bottom: 8px;
         }
 
-        .result .value {
+        .result .words {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .result .word {
             font-family: 'DM Mono', monospace;
-            font-size: 1.6rem;
+            font-size: 1.4rem;
             font-weight: 500;
             color: #1a1a1a;
         }
 
-        .result .value.error {
+        .result .arrow {
             font-size: 1rem;
-            color: #c0392b;
+            color: #bbb;
+        }
+
+        .result .word.inverted {
+            color: #555;
         }
     </style>
 </head>
 <body>
     <div class="card">
-        <h1>calculatrice.php</h1>
+        <h1>inverser-mot.php</h1>
 
         <form method="POST">
-            <div class="row">
-                <div class="field">
-                    <label>Valeur A</label>
-                    <input type="number" name="valeur1" step="any"
-                           value="<?= htmlspecialchars($premiereValeur) ?>"
-                           placeholder="4" required>
-                </div>
-
-                <div class="field field-op">
-                    <label>Op.</label>
-                    <select name="operateur">
-                        <?php foreach (['+', '-', '*', '/'] as $op): ?>
-                            <option value="<?= $op ?>" <?= $operateur === $op ? 'selected' : '' ?>>
-                                <?= $op ?>
-                            </option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-
-                <div class="field">
-                    <label>Valeur B</label>
-                    <input type="number" name="valeur2" step="any"
-                           value="<?= htmlspecialchars($deuxiemeValeur) ?>"
-                           placeholder="6" required>
-                </div>
+            <div class="field">
+                <label>Votre mot</label>
+                <input type="text" name="mot"
+                       value="<?= htmlspecialchars($mot) ?>"
+                       placeholder="Bonjour" required>
             </div>
 
-            <button type="submit">Calculer</button>
+            <button type="submit">Inverser</button>
         </form>
 
-        <?php if ($res !== null): ?>
+        <?php if ($resultat !== null): ?>
             <div class="result">
-                <div class="expr">
-                    <?= htmlspecialchars($premiereValeur) ?>
-                    <?= htmlspecialchars($operateur) ?>
-                    <?= htmlspecialchars($deuxiemeValeur) ?>
-                </div>
-                <div class="value <?= is_string($res) ? 'error' : '' ?>">
-                    <?= htmlspecialchars((string)$res) ?>
+                <div class="label">Résultat</div>
+                <div class="words">
+                    <span class="word"><?= htmlspecialchars($mot) ?></span>
+                    <span class="arrow">→</span>
+                    <span class="word inverted"><?= htmlspecialchars($resultat) ?></span>
                 </div>
             </div>
         <?php endif; ?>

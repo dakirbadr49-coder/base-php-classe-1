@@ -7,10 +7,10 @@ $message         = "";
 
 if (isset($_POST["nom"], $_POST["email"], $_POST["message"])) {
     $nom     = htmlspecialchars(trim($_POST["nom"]));
-    $email   = htmlspecialchars(trim($_POST["email"]));
+    $email   = filter_var($_POST["email"],FILTER_VALIDATE_EMAIL);
     $message = htmlspecialchars(trim($_POST["message"]));
 
-    if (empty($nom) || empty($email) || empty($message)) {
+    if (empty($nom) || $email===false || empty($message)) {
         $messageResultat = "Tous les champs doivent être remplis.";
         $statut          = "error";
     } else {

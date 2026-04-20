@@ -1,13 +1,13 @@
 <?php
 
-
-
-function calculSimple(float $a, float $b, string $operateur): float|string
-{
-    if ($operateur === "+")  return $a + $b;
-    if ($operateur === "-")  return $a - $b;
-    if ($operateur === "*")  return $a * $b;
-    if ($operateur === "/") {
+function calculSimple($a, $b, $operateur) {
+    if ($operateur === "+") {
+        return $a + $b;
+    } elseif ($operateur === "-") {
+        return $a - $b;
+    } elseif ($operateur === "*") {
+        return $a * $b;
+    } elseif ($operateur === "/") {
         if ($b == 0)
             return "Division par 0 impossible";
         return $a / $b;
@@ -16,13 +16,21 @@ function calculSimple(float $a, float $b, string $operateur): float|string
     }
 }
 
+$res = null;
+$premiereValeur = "";
+$deuxiemeValeur = "";
+$operateur = "+";
 
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $premiereValeur = $_POST["valeur1"] ?? "";
+    $deuxiemeValeur = $_POST["valeur2"] ?? "";
+    $operateur      = $_POST["operateur"] ?? "+";
 
-if (isset($_POST["valeur1"],$_POST["valeur2"],$_POST["operateur"])) {
-    $premiereValeur = (float) $_POST["valeur1"];
-    $deuxiemeValeur = (float) $_POST["valeur2"];
-    $operateur = (string) $_POST["operateur"];
-    $res= calculSimple($premiereValeur,$deuxiemeValeur,$operateur) ;
+    if (is_numeric($premiereValeur) && is_numeric($deuxiemeValeur)) {
+        $res = calculSimple((float)$premiereValeur, (float)$deuxiemeValeur, $operateur);
+    } else {
+        $res = "Veuillez entrer des nombres valides";
+    }
 }
 ?>
 <!DOCTYPE html>
